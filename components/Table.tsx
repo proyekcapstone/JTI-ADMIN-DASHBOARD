@@ -1,40 +1,34 @@
+import Link from 'next/link'
 import React from 'react'
+import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai'
+import { FaSearch } from 'react-icons/fa'
 
-const Table = () => {
+const Table = ({ destinations }: any) => {
   return (
-    <div className="w-full rounded-md bg-white p-8">
-      <div className="flex items-center justify-between pb-6 ">
+    <>
+      <div className="block items-center justify-between pb-6 sm:flex ">
         <div>
           <h2 className="font-semibold text-gray-600">Destinations</h2>
           <span className="text-xs">All Destinations</span>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="mt-4 block items-center justify-between sm:mt-0 sm:flex">
           <div className="flex items-center rounded-md bg-gray-50 p-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <FaSearch className="mr-1 text-gray-400" />
             <input
               className="ml-1 block bg-gray-50 outline-none "
               type="text"
-              placeholder="search..."
+              placeholder="Search..."
             />
           </div>
-          <div className="ml-10 space-x-8 lg:ml-40">
+          <div className="mt-4 space-x-8 sm:ml-10 sm:mt-0 lg:ml-40">
             <button className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-semibold tracking-wide text-white">
               New Report
             </button>
-            <button className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-semibold tracking-wide text-white">
-              Create
-            </button>
+            <Link href="/destination/create">
+              <button className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-semibold tracking-wide text-white">
+                Create
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -48,20 +42,14 @@ const Table = () => {
                     Name
                   </th>
                   <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                    Address
-                  </th>
-                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
                     Open/Close Hours
                   </th>
 
                   <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    Open Day
+                  </th>
+                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
                     No.Telp
-                  </th>
-                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                    Website
-                  </th>
-                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                    Instagram
                   </th>
                   <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
                     Action
@@ -69,47 +57,49 @@ const Table = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p className="whitespace-no-wrap text-gray-900">
-                      Jogja Bay
-                    </p>
-                  </td>
-                  <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p className="whitespace-no-wrap text-gray-900">
-                      Jl. Std Maguwoharjo
-                    </p>
-                  </td>
-                  <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p className="whitespace-no-wrap text-gray-900">
-                      10:00 - 16:00 WIB
-                    </p>
-                  </td>
-                  <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p className="whitespace-no-wrap text-gray-900">
-                      08123456789
-                    </p>
-                  </td>
-                  <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p className="whitespace-no-wrap text-gray-900">
-                      www.jogjabay.com
-                    </p>
-                  </td>
-                  <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p className="whitespace-no-wrap text-gray-900">
-                      @jogjabay
-                    </p>
-                  </td>
-                  <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                      <span
-                        aria-hidden
-                        className="absolute inset-0 rounded-full bg-green-200 opacity-50"
-                      />
-                      <span className="relative">Edit</span>
-                    </span>
-                  </td>
-                </tr>
+                {destinations.map((destination: any) => {
+                  return (
+                    <tr key={destination.id}>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.name}
+                        </p>
+                      </td>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.openTime}
+                        </p>
+                      </td>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.openDay}
+                        </p>
+                      </td>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.telephone}
+                        </p>
+                      </td>
+                      <td className="flex justify-around border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <div className="rounded-xl bg-green-300 px-2 py-1 text-green-900">
+                          <span className="relative">
+                            <AiFillEye />
+                          </span>
+                        </div>
+                        <div className="rounded-xl bg-blue-300 px-2 py-1 text-blue-900">
+                          <span className="relative">
+                            <AiFillEdit />
+                          </span>
+                        </div>
+                        <div className="rounded-xl bg-red-300 px-2 py-1 text-red-900">
+                          <span className="relative">
+                            <AiFillDelete />
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
             <div className="xs:flex-row xs:justify-between flex flex-col items-center border-t bg-white px-5 py-5 ">
@@ -129,7 +119,7 @@ const Table = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
