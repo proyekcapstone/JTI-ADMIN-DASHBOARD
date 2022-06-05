@@ -1,9 +1,38 @@
+import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai'
 import { FaSearch } from 'react-icons/fa'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-const Table = ({ destinations }: any) => {
+const MySwal = withReactContent(Swal)
+
+const TableDestination = ({ destinations }: any) => {
+  const apiUrl = 'http://localhost:5000/v1/destination/'
+
+  const handleDelete = (id: string) => {
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to delete this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${apiUrl}${id}`).then(() => {
+          Swal.fire(
+            'Deleted!',
+            'Destination Successfully Deleted.',
+            'success'
+          ).then(() => window.location.reload())
+        })
+      }
+    })
+  }
+
   return (
     <>
       <div className="block items-center justify-between pb-6 sm:flex ">
@@ -81,21 +110,28 @@ const Table = ({ destinations }: any) => {
                         </p>
                       </td>
                       <td className="flex justify-around border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                        <div className="rounded-xl bg-green-300 px-2 py-1 text-green-900">
-                          <span className="relative">
-                            <AiFillEye />
-                          </span>
-                        </div>
-                        <div className="rounded-xl bg-blue-300 px-2 py-1 text-blue-900">
-                          <span className="relative">
-                            <AiFillEdit />
-                          </span>
-                        </div>
-                        <div className="rounded-xl bg-red-300 px-2 py-1 text-red-900">
+                        <Link href={`/destination/${destination.id}`}>
+                          <button className="rounded-xl bg-green-300 px-2 py-1 text-green-900">
+                            <span className="relative">
+                              <AiFillEye />
+                            </span>
+                          </button>
+                        </Link>
+                        <Link href={`/destination/edit/${destination.id}`}>
+                          <button className="rounded-xl bg-blue-300 px-2 py-1 text-blue-900">
+                            <span className="relative">
+                              <AiFillEdit />
+                            </span>
+                          </button>
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(destination.id)}
+                          className="rounded-xl bg-red-300 px-2 py-1 text-red-900"
+                        >
                           <span className="relative">
                             <AiFillDelete />
                           </span>
-                        </div>
+                        </button>
                       </td>
                     </tr>
                   )
@@ -123,4 +159,4 @@ const Table = ({ destinations }: any) => {
   )
 }
 
-export default Table
+export default TableDestination

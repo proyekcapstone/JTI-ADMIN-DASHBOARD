@@ -1,23 +1,6 @@
 import React from 'react'
-import { string } from 'yup'
 
-interface InputFormInterface {
-  register: any
-  errors: any
-  label: string
-  id: string
-  type: string
-  placeholder: string
-}
-
-const InputForm = ({
-  register,
-  errors,
-  label,
-  id,
-  type,
-  placeholder,
-}: InputFormInterface) => {
+const InputForm = ({ register, errors, label, id, ...formInput }: any) => {
   return (
     <div>
       <label
@@ -30,9 +13,8 @@ const InputForm = ({
         {...register(id)}
         id={id}
         name={id}
-        type={type}
+        {...formInput}
         className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
-        placeholder={placeholder}
       />
       {errors && (
         <div className="m-1 text-sm font-light text-red-500">
