@@ -12,16 +12,16 @@ const Layout = ({ children, title }: LayoutProps) => {
   return (
     <>
       <Navbar />
-      <main className="grid w-full h-full grid-cols-9">
+      <main className="grid h-full w-full grid-cols-9">
         <div className="col-span-2">
           <Sidebar />
         </div>
         <div className="col-span-7">
-          <div className="flex items-center p-4 mx-8 my-4 text-sm font-bold text-white rounded-md bg-gradient-to-br from-blue-700 via-blue-500 to-blue-600">
+          <div className="mx-8 my-4 flex items-center rounded-md bg-gradient-to-br from-blue-700 via-blue-500 to-blue-600 p-4 text-sm font-bold text-white">
             <p className="text-xl font-bold">{title ? title : 'JTI ADMIN'}</p>
           </div>
-          <div className="p-8 mx-8 mb-8 bg-gray-200 border-t-8 border-blue-500 rounded-md shadow sm:block">
-            {children}
+          <div className="mx-8 mb-8 rounded-md border-t-8 border-blue-500 bg-gray-200 p-8 shadow sm:block">
+            <div className="w-full rounded-md bg-white p-8">{children}</div>
           </div>
         </div>
       </main>

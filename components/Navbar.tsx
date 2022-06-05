@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoIosSettings, IoMdSettings } from 'react-icons/io'
+import { IoIosSettings } from 'react-icons/io'
 
 const Navbar = () => {
   return (
