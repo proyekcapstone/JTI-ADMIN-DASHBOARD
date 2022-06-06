@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <header className="flex w-full items-center justify-between bg-gray-800 p-4">
       <nav className="ml-2 flex items-center">
-        <img className="h-7 w-7" src="jti.png" />
+        <img className="h-7 w-7" src="/jti.png" />
         <div className="ml-4 hidden text-xs text-white sm:block">
           <a
             href="#"

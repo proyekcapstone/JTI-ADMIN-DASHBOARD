@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import Layout from '../../components/Layout'
-import Table from '../../components/Table'
+import Table from '../../components/TableDestination'
 
 const Destination = ({ destinations }: any) => {
   return (
@@ -11,7 +11,7 @@ const Destination = ({ destinations }: any) => {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await axios.get(`${process.env.API_URL}/destination`)
   const destinations = res.data
   console.log(destinations)
