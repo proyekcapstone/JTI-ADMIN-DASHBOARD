@@ -1,33 +1,31 @@
+import axios from 'axios'
+import Link from 'next/link'
 import React from 'react'
 import Layout from '../../components/Layout'
 
-const DetailDestination = () => {
+const DetailDestination = ({ destination }: any) => {
   return (
     <Layout title="Detail Destination">
-      <div className="container mx-auto my-5 p-5">
+      <div className="container mx-auto mb-5 p-5">
         <div className="no-wrap md:-mx-2 md:flex ">
           {/* Left Side */}
-          <div className="w-full md:mx-2 md:w-3/12">
+          <div className="mt-4 w-full md:mx-4 md:w-3/12">
             {/* Profile Card */}
-            <div className="border-t-4 border-green-400 bg-white p-3">
+            <div className="border-t-4 border-blue-500 bg-white p-3">
               <div className="image overflow-hidden">
                 <img
                   className="mx-auto h-auto w-full"
-                  src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+                  src={destination.image}
                   alt=""
                 />
               </div>
-              <h1 className="my-1 text-xl font-bold leading-8 text-gray-900">
-                Jane Doe
+              <h1 className="my-1 text-xl font-bold capitalize leading-8 text-gray-900">
+                {destination.name}
               </h1>
-              <h3 className="font-lg text-semibold leading-6 text-gray-600">
-                Owner at Her Company Inc.
-              </h3>
-              <p className="text-sm leading-6 text-gray-500 hover:text-gray-600">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur
-                non deserunt
+              <p className="my-2 text-sm leading-6 text-gray-500 hover:text-gray-600">
+                {destination.address}
               </p>
+
               <ul className="mt-3 divide-y rounded bg-gray-100 py-2 px-3 text-gray-600 shadow-sm hover:text-gray-700 hover:shadow">
                 <li className="flex items-center py-3">
                   <span>Status</span>
@@ -37,207 +35,103 @@ const DetailDestination = () => {
                     </span>
                   </span>
                 </li>
-                <li className="flex items-center py-3">
-                  <span>Member since</span>
-                  <span className="ml-auto">Nov 07, 2016</span>
-                </li>
               </ul>
             </div>
 
             {/* End of friends card */}
           </div>
+
           {/* Right Side */}
-          <div className="mx-2 h-64 w-full md:w-9/12">
-            {/* Profile tab */}
+          <div className="mx-2 h-full w-full md:w-8/12">
             {/* About Section */}
-            <div className="rounded-sm bg-white p-3 shadow-sm">
-              <div className="flex items-center space-x-2 font-semibold leading-8 text-gray-900">
-                <span className="text-green-500">
-                  <svg
-                    className="h-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </span>
-                <span className="tracking-wide">About</span>
-              </div>
+            <div className="rounded-sm bg-white p-3">
               <div className="text-gray-700">
                 <div className="grid text-sm md:grid-cols-2">
                   <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">First Name</div>
-                    <div className="px-4 py-2">Jane</div>
+                    <div className="px-4 py-2 font-semibold">City</div>
+                    <div className="px-4 py-2">{destination.city}</div>
                   </div>
                   <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Last Name</div>
-                    <div className="px-4 py-2">Doe</div>
+                    <div className="px-4 py-2 font-semibold">Province</div>
+                    <div className="px-4 py-2">{destination.province}</div>
                   </div>
                   <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Gender</div>
-                    <div className="px-4 py-2">Female</div>
+                    <div className="px-4 py-2 font-semibold">Telephone</div>
+                    <div className="px-4 py-2">{destination.telephone}</div>
                   </div>
                   <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Contact No.</div>
-                    <div className="px-4 py-2">+11 998001001</div>
+                    <div className="px-4 py-2 font-semibold">Postal Code</div>
+                    <div className="px-4 py-2">{destination.postalCode}</div>
                   </div>
                   <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">
-                      Current Address
-                    </div>
-                    <div className="px-4 py-2">
-                      Beech Creek, PA, Pennsylvania
-                    </div>
+                    <div className="px-4 py-2 font-semibold">Open Time</div>
+                    <div className="px-4 py-2">{destination.openTime}</div>
                   </div>
                   <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">
-                      Permanant Address
-                    </div>
-                    <div className="px-4 py-2">
-                      Arlington Heights, IL, Illinois
-                    </div>
+                    <div className="px-4 py-2 font-semibold">Open Day</div>
+                    <div className="px-4 py-2">{destination.openDay}</div>
                   </div>
+
                   <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Email.</div>
-                    <div className="px-4 py-2">
-                      <a
-                        className="text-blue-800"
-                        href="mailto:jane@example.com"
-                      >
-                        jane@example.com
-                      </a>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Birthday</div>
-                    <div className="px-4 py-2">Feb 06, 1998</div>
+                    <div className="px-4 py-2 font-semibold">Instagram</div>
+                    <div className="px-4 py-2">{destination.instagram}</div>
                   </div>
                 </div>
               </div>
-              <button className="focus:shadow-outline hover:shadow-xs my-4 block w-full rounded-lg p-3 text-sm font-semibold text-blue-800 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none">
-                Show Full Information
-              </button>
+            </div>
+            <div className="px-8 pt-1">
+              <div className="font-semibold">Website</div>
+              <span className="text-sm text-gray-600">
+                {destination.website}
+              </span>
+              <div className="mt-2 font-semibold">Description</div>
+              <p className="py-2 text-sm text-gray-500">
+                {destination.description}
+              </p>
+
+              <div className="flex">
+                <span className="title-font text-2xl font-medium text-blue-600">
+                  Rp.{Intl.NumberFormat('id').format(destination.ticket)}
+                </span>
+                <Link href="/destination">
+                  <button className="ml-auto flex rounded border-0 bg-red-500 py-2 px-3 text-white hover:bg-red-600 focus:outline-none">
+                    Back
+                  </button>
+                </Link>
+                <button className="ml-4 inline-flex h-10 w-10 items-center justify-center rounded-full border-0 bg-gray-200 p-0 text-gray-500">
+                  <svg
+                    fill="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    className="h-5 w-5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                  </svg>
+                </button>
+              </div>
             </div>
             {/* End of about section */}
-            <div className="my-4" />
-            {/* Experience and education */}
-            <div className="rounded-sm bg-white p-3 shadow-sm">
-              <div className="grid grid-cols-2">
-                <div>
-                  <div className="mb-3 flex items-center space-x-2 font-semibold leading-8 text-gray-900">
-                    <span className="text-green-500">
-                      <svg
-                        className="h-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                      </svg>
-                    </span>
-                    <span className="tracking-wide">Experience</span>
-                  </div>
-                  <ul className="list-inside space-y-2">
-                    <li>
-                      <div className="text-teal-600">
-                        Owner at Her Company Inc.
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        March 2020 - Now
-                      </div>
-                    </li>
-                    <li>
-                      <div className="text-teal-600">
-                        Owner at Her Company Inc.
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        March 2020 - Now
-                      </div>
-                    </li>
-                    <li>
-                      <div className="text-teal-600">
-                        Owner at Her Company Inc.
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        March 2020 - Now
-                      </div>
-                    </li>
-                    <li>
-                      <div className="text-teal-600">
-                        Owner at Her Company Inc.
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        March 2020 - Now
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <div className="mb-3 flex items-center space-x-2 font-semibold leading-8 text-gray-900">
-                    <span className="text-green-500">
-                      <svg
-                        className="h-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path
-                          fill="#fff"
-                          d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                        />
-                      </svg>
-                    </span>
-                    <span className="tracking-wide">Education</span>
-                  </div>
-                  <ul className="list-inside space-y-2">
-                    <li>
-                      <div className="text-teal-600">
-                        Masters Degree in Oxford
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        March 2020 - Now
-                      </div>
-                    </li>
-                    <li>
-                      <div className="text-teal-600">
-                        Bachelors Degreen in LPU
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        March 2020 - Now
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              {/* End of Experience and education grid */}
-            </div>
-            {/* End of profile tab */}
           </div>
         </div>
       </div>
     </Layout>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const res = await axios.get(
+    `${process.env.API_URL}/destination/${context.params.id}`
+  )
+  const destination = res.data
+  console.log(destination)
+
+  return {
+    props: {
+      destination,
+    },
+  }
 }
 
 export default DetailDestination
