@@ -2,13 +2,12 @@ import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 import Layout from '../../components/Layout'
-import Loaders from '../../components/Loaders'
 
-const DetailDestination = ({ destination }: any) => {
+const DetailHotel = ({ hotel }: any) => {
   return (
-    <Layout title="Detail Destination">
+    <Layout title="Detail Hotel">
       <div className="container mx-auto mb-5 p-5">
-        <div className="no-wrap md:-mx-2 md:flex">
+        <div className="no-wrap md:-mx-2 md:flex ">
           {/* Left Side */}
           <div className="mt-4 w-full md:mx-4 md:w-3/12">
             {/* Profile Card */}
@@ -16,15 +15,15 @@ const DetailDestination = ({ destination }: any) => {
               <div className="image overflow-hidden">
                 <img
                   className="mx-auto h-auto w-full"
-                  src={destination.image}
+                  src={hotel.image}
                   alt=""
                 />
               </div>
               <h1 className="my-1 text-xl font-bold capitalize leading-8 text-gray-900">
-                {destination.name}
+                {hotel.name}
               </h1>
               <p className="my-2 text-sm leading-6 text-gray-500 hover:text-gray-600">
-                {destination.address}
+                {hotel.address}
               </p>
 
               <ul className="mt-3 divide-y rounded bg-gray-100 py-2 px-3 text-gray-600 shadow-sm hover:text-gray-700 hover:shadow">
@@ -50,51 +49,29 @@ const DetailDestination = ({ destination }: any) => {
                 <div className="grid text-sm md:grid-cols-2">
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">City</div>
-                    <div className="px-4 py-2">{destination.city}</div>
+                    <div className="px-4 py-2">{hotel.city}</div>
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Province</div>
-                    <div className="px-4 py-2">{destination.province}</div>
+                    <div className="px-4 py-2">{hotel.province}</div>
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Telephone</div>
-                    <div className="px-4 py-2">{destination.telephone}</div>
+                    <div className="px-4 py-2">{hotel.telephone}</div>
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Postal Code</div>
-                    <div className="px-4 py-2">{destination.postalCode}</div>
-                  </div>
-                  <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Open Time</div>
-                    <div className="px-4 py-2">{destination.openTime}</div>
-                  </div>
-                  <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Open Day</div>
-                    <div className="px-4 py-2">{destination.openDay}</div>
-                  </div>
-
-                  <div className="grid grid-cols-2">
-                    <div className="px-4 py-2 font-semibold">Instagram</div>
-                    <div className="px-4 py-2">{destination.instagram}</div>
+                    <div className="px-4 py-2">{hotel.postalCode}</div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="px-8 pt-1">
-              <div className="font-semibold">Website</div>
-              <span className="text-sm text-gray-600">
-                {destination.website}
-              </span>
               <div className="mt-2 font-semibold">Description</div>
-              <p className="py-2 text-sm text-gray-500">
-                {destination.description}
-              </p>
+              <p className="py-2 text-sm text-gray-500">{hotel.description}</p>
 
               <div className="flex">
-                <span className="title-font text-2xl font-medium text-blue-600">
-                  Rp.{Intl.NumberFormat('id').format(destination.ticket)}
-                </span>
-                <Link href="/destination">
+                <Link href="/hotel">
                   <button className="ml-auto flex rounded border-0 bg-red-500 py-2 px-3 text-white hover:bg-red-600 focus:outline-none">
                     Back
                   </button>
@@ -123,15 +100,15 @@ const DetailDestination = ({ destination }: any) => {
 
 export async function getServerSideProps(context: any) {
   const res = await axios.get(
-    `${process.env.API_URL}/destination/${context.params.id}`
+    `${process.env.API_URL}/hotel/${context.params.id}`
   )
-  const destination = res.data
+  const hotel = res.data
 
   return {
     props: {
-      destination,
+      hotel,
     },
   }
 }
 
-export default DetailDestination
+export default DetailHotel

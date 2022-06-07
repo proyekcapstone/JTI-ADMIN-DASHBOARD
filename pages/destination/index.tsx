@@ -14,7 +14,6 @@ const Destination = ({ destinations }: any) => {
 export async function getServerSideProps() {
   const res = await axios.get(`${process.env.API_URL}/destination`)
   const destinations = res.data
-  console.log(destinations)
 
   return {
     props: {

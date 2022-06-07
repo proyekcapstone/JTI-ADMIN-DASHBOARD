@@ -3,8 +3,8 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import InputForm from '../../components/InputForm'
-import Layout from '../../components/Layout'
+import InputForm from '../../../components/InputForm'
+import Layout from '../../../components/Layout'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
@@ -12,7 +12,7 @@ import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
 
-const CreateDestination = () => {
+const EditHotel = ({ hotel }: any) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required().min(3),
     description: Yup.string().required().min(3),
@@ -25,21 +25,15 @@ const CreateDestination = () => {
       (val) => val?.toString().length === 5
     ),
     telephone: Yup.number().required().min(12),
-    openTime: Yup.string().required().min(3),
-    openDay: Yup.string().required().min(3),
-    ticket: Yup.number().required().min(4),
-    website: Yup.string().required().url().min(3),
-    instagram: Yup.string().required().min(3),
-    image: Yup.mixed().test('image', 'The file is too large', (value) => {
-      if (!value.length) return true // attachment is optional
-      return value[0].size <= 2000000
-    }),
+    // image: Yup.mixed().test('image', 'The file is too large', (value) => {
+    //   if (!value.length) return true // attachment is optional
+    //   return value[0].size <= 2000000
+    // }),
   })
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     mode: 'onBlur',
@@ -49,7 +43,7 @@ const CreateDestination = () => {
   const router = useRouter()
 
   const onSubmit = async (dataRequest: any, e: any) => {
-    const apiUrl = `https://jti-api.herokuapp.com/v1/destination`
+    const apiUrl = 'https://jti-api.herokuapp.com/v1/hotel'
 
     try {
       const data = {
@@ -61,26 +55,19 @@ const CreateDestination = () => {
         province: dataRequest.province,
         postalCode: dataRequest.postalCode,
         telephone: dataRequest.telephone,
-        openTime: dataRequest.openTime,
-        openDay: dataRequest.openDay,
-        ticket: dataRequest.ticket,
-        website: dataRequest.website,
-        instagram: dataRequest.instagram,
       }
 
-      const res = await axios.post(apiUrl, data, {
+      const res = await axios.put(`${apiUrl}/${hotel.id}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
 
       e.target.reset()
 
-      MySwal.fire(
-        'Success!',
-        'Destination Successfully Created!',
-        'success'
-      ).then(() => {
-        router.push('/destination')
-      })
+      MySwal.fire('Success!', 'Hotel Successfully Updated!', 'success').then(
+        () => {
+          router.push('/hotel')
+        }
+      )
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -91,7 +78,7 @@ const CreateDestination = () => {
   }
 
   return (
-    <Layout title="Create Destination">
+    <Layout title="Edit Hotel">
       <form onSubmit={handleSubmit(onSubmit)} encType="multipart/formData">
         <div className="mb-6 grid gap-6 lg:grid-cols-2">
           <InputForm
@@ -101,6 +88,7 @@ const CreateDestination = () => {
             placeholder="Name :"
             register={register}
             errors={errors.name}
+            defaultValue={`${hotel.name}`}
           />
 
           <InputForm
@@ -110,6 +98,7 @@ const CreateDestination = () => {
             placeholder="City :"
             register={register}
             errors={errors.city}
+            defaultValue={hotel.city}
           />
           <InputForm
             id="province"
@@ -118,6 +107,7 @@ const CreateDestination = () => {
             placeholder="Province :"
             register={register}
             errors={errors.province}
+            defaultValue={hotel.province}
           />
           <InputForm
             id="postalCode"
@@ -126,6 +116,7 @@ const CreateDestination = () => {
             placeholder="Postal Code :"
             register={register}
             errors={errors.postalCode}
+            defaultValue={hotel.postalCode}
           />
           <InputForm
             id="telephone"
@@ -134,46 +125,7 @@ const CreateDestination = () => {
             placeholder="Telephone :"
             register={register}
             errors={errors.telephone}
-          />
-          <InputForm
-            id="openTime"
-            type="text"
-            label="Open Time"
-            placeholder="Open Time :"
-            register={register}
-            errors={errors.openTime}
-          />
-          <InputForm
-            id="openDay"
-            type="text"
-            label="Open Day"
-            placeholder="Open Day :"
-            register={register}
-            errors={errors.openDay}
-          />
-          <InputForm
-            id="ticket"
-            type="number"
-            label="Ticket"
-            placeholder="Ticket :"
-            register={register}
-            errors={errors.ticket}
-          />
-          <InputForm
-            id="website"
-            type="url"
-            label="Website"
-            placeholder="Website :"
-            register={register}
-            errors={errors.website}
-          />
-          <InputForm
-            id="instagram"
-            type="text"
-            label="Instagram"
-            placeholder="Instagram :"
-            register={register}
-            errors={errors.instagram}
+            defaultValue={hotel.telephone}
           />
         </div>
         <InputForm
@@ -183,6 +135,7 @@ const CreateDestination = () => {
           placeholder="Address :"
           register={register}
           errors={errors.address}
+          defaultValue={hotel.address}
         />
         <div className="my-8">
           <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
@@ -195,6 +148,7 @@ const CreateDestination = () => {
             rows={3}
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
             placeholder="Description :"
+            defaultValue={hotel.description}
           ></textarea>
           {errors.description && (
             <div className="m-1 text-sm font-light text-red-500">
@@ -242,7 +196,7 @@ const CreateDestination = () => {
             </div>
           )}
         </div>
-        <Link href="/destination">
+        <Link href="/hotel">
           <button
             type="button"
             className="m-1 rounded-md border bg-red-600 px-4 py-2 text-sm  text-white hover:bg-red-700"
@@ -262,4 +216,17 @@ const CreateDestination = () => {
   )
 }
 
-export default CreateDestination
+export async function getServerSideProps(context: any) {
+  const res = await axios.get(
+    `${process.env.API_URL}/hotel/${context.params.id}`
+  )
+  const hotel = res.data
+
+  return {
+    props: {
+      hotel,
+    },
+  }
+}
+
+export default EditHotel

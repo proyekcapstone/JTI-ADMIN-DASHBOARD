@@ -1,35 +1,41 @@
 import Link from 'next/link'
 import React from 'react'
 import { AiFillDashboard } from 'react-icons/ai'
-import { FaMapMarkedAlt, FaPowerOff } from 'react-icons/fa'
+import { FaHotel, FaMapMarkedAlt, FaPowerOff } from 'react-icons/fa'
 
 const Sidebar = () => {
   return (
-    <aside className="hidden w-full h-full bg-gray sm:block">
-      <div className="flex flex-col justify-between h-full p-4 bg-gray-100 border">
+    <aside className="bg-gray hidden h-full w-full sm:block">
+      <div className="flex h-full flex-col justify-between border bg-gray-100 p-4">
         <div className="text-sm">
-          <div className="p-5 mb-8 font-bold text-center text-white rounded cursor-pointer bg-gradient-to-br from-blue-700 via-blue-500 to-blue-600">
+          <div className="mb-8 cursor-pointer rounded bg-gradient-to-br from-blue-700 via-blue-500 to-blue-600 p-5 text-center font-bold text-white">
             JOGJA TRAVEL INFORMATION
           </div>
           <Link href="/">
-            <a className="flex items-center p-2 mt-2 text-black bg-gray-300 rounded cursor-pointer hover:bg-blue-600 hover:text-blue-100">
+            <a className="mt-2 flex cursor-pointer items-center rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
               <AiFillDashboard className="mx-2 text-lg" />
-              <span className="font-semibold text-md">Dashboard</span>
+              <span className="text-md font-semibold">Dashboard</span>
             </a>
           </Link>
           <Link href="/destination">
-            <a className="flex p-2 mt-2 text-black bg-gray-300 rounded cursor-pointer hover:bg-blue-600 hover:text-blue-100">
+            <a className="mt-2 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
               <FaMapMarkedAlt className="mx-2 text-lg" />
-              <span className="font-semibold text-md">Destination</span>
+              <span className="text-md font-semibold">Destination</span>
+            </a>
+          </Link>
+          <Link href="/hotel">
+            <a className="mt-2 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
+              <FaHotel className="mx-2 text-lg" />
+              <span className="text-md font-semibold">Hotel</span>
             </a>
           </Link>
         </div>
 
         <Link href="/auth/login">
-          <a className="flex p-3 text-sm text-center text-red-600 bg-gray-800 rounded cursor-pointer">
+          <a className="flex cursor-pointer rounded bg-gray-800 p-3 text-center text-sm text-red-600">
             <div className="inline-flex items-center rounded">
-              <FaPowerOff className="mx-2 text-lg text-red" />
-              <span className="font-semibold text-md">Logout</span>
+              <FaPowerOff className="text-red mx-2 text-lg" />
+              <span className="text-md font-semibold">Logout</span>
             </div>
           </a>
         </Link>
