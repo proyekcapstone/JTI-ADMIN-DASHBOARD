@@ -9,12 +9,16 @@ const Banner = () => {
             Documentation for JTI-APP
           </h2>
 
-          <p className="mt-5 ml-10 text-sm font-light text-white">
+          <p className="my-5 ml-10 text-sm font-light text-white">
             This documentation contains api endpoints for JTI applications to
             make it easier for the front-end team to find out what endpoints are
             in this REST-API
           </p>
-          <button className="group mt-5 mb-8 ml-10 font-semibold text-white ">
+          <a
+            href="https://jti-api.herokuapp.com/v1/docs/"
+            target="_blank"
+            className="group mt-5 mb-8 ml-10 font-semibold text-white "
+          >
             View the docs
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +34,7 @@ const Banner = () => {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </button>
+          </a>
         </div>
 
         <div className="relative col-span-2">

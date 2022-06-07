@@ -10,7 +10,7 @@ import Loaders from './Loaders'
 const MySwal = withReactContent(Swal)
 
 const TableDestination = ({ destinations }: any) => {
-  const apiUrl = 'http://localhost:5000/v1/destination/'
+  const apiUrl = `https://jti-api.herokuapp.com/v1/destination/`
 
   const handleDelete = (id: string) => {
     MySwal.fire({
@@ -63,102 +63,98 @@ const TableDestination = ({ destinations }: any) => {
         </div>
       </div>
       <div>
-        {destinations ? (
-          <div className="-mx-4 overflow-x-auto px-4 py-4 sm:-mx-8 sm:px-8">
-            <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
-              <table className="min-w-full leading-normal">
-                <thead>
-                  <tr>
-                    <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                      Name
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                      Open/Close Hours
-                    </th>
+        <div className="-mx-4 overflow-x-auto px-4 py-4 sm:-mx-8 sm:px-8">
+          <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
+            <table className="min-w-full leading-normal">
+              <thead>
+                <tr>
+                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    Name
+                  </th>
+                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    Open/Close Hours
+                  </th>
 
-                    <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                      Open Day
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                      No.Telp
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {destinations.map((destination: any) => {
-                    return (
-                      <tr key={destination.id}>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                          <p className="whitespace-no-wrap text-gray-900">
-                            {destination.name}
-                          </p>
-                        </td>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                          <p className="whitespace-no-wrap text-gray-900">
-                            {destination.openTime}
-                          </p>
-                        </td>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                          <p className="whitespace-no-wrap text-gray-900">
-                            {destination.openDay}
-                          </p>
-                        </td>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                          <p className="whitespace-no-wrap text-gray-900">
-                            {destination.telephone}
-                          </p>
-                        </td>
-                        <td className="flex justify-around border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                          <Link href={`/destination/${destination.id}`}>
-                            <button className="rounded-xl bg-green-300 px-2 py-1 text-green-900">
-                              <span className="relative">
-                                <AiFillEye />
-                              </span>
-                            </button>
-                          </Link>
-                          <Link href={`/destination/edit/${destination.id}`}>
-                            <button className="rounded-xl bg-blue-300 px-2 py-1 text-blue-900">
-                              <span className="relative">
-                                <AiFillEdit />
-                              </span>
-                            </button>
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(destination.id)}
-                            className="rounded-xl bg-red-300 px-2 py-1 text-red-900"
-                          >
+                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    Open Day
+                  </th>
+                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    No.Telp
+                  </th>
+                  <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {destinations.map((destination: any) => {
+                  return (
+                    <tr key={destination.id}>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.name}
+                        </p>
+                      </td>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.openTime}
+                        </p>
+                      </td>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.openDay}
+                        </p>
+                      </td>
+                      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <p className="whitespace-no-wrap text-gray-900">
+                          {destination.telephone}
+                        </p>
+                      </td>
+                      <td className="flex justify-around border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                        <Link href={`/destination/${destination.id}`}>
+                          <button className="rounded-xl bg-green-300 px-2 py-1 text-green-900">
                             <span className="relative">
-                              <AiFillDelete />
+                              <AiFillEye />
                             </span>
                           </button>
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-              <div className="xs:flex-row xs:justify-between flex flex-col items-center border-t bg-white px-5 py-5 ">
-                <span className="xs:text-sm text-xs text-gray-900">
-                  Showing 1 to 4 of 50 Entries
-                </span>
-                <div className="xs:mt-0 mt-2 inline-flex">
-                  <button className="rounded-l bg-blue-600 px-4 py-2 text-sm font-semibold text-blue-50 transition duration-150 hover:bg-blue-500">
-                    Prev
-                  </button>
-                  &nbsp; &nbsp;
-                  <button className="rounded-r bg-blue-600 px-4 py-2 text-sm font-semibold text-blue-50 transition duration-150 hover:bg-blue-500">
-                    Next
-                  </button>
-                </div>
+                        </Link>
+                        <Link href={`/destination/edit/${destination.id}`}>
+                          <button className="rounded-xl bg-blue-300 px-2 py-1 text-blue-900">
+                            <span className="relative">
+                              <AiFillEdit />
+                            </span>
+                          </button>
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(destination.id)}
+                          className="rounded-xl bg-red-300 px-2 py-1 text-red-900"
+                        >
+                          <span className="relative">
+                            <AiFillDelete />
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            <div className="xs:flex-row xs:justify-between flex flex-col items-center border-t bg-white px-5 py-5 ">
+              <span className="xs:text-sm text-xs text-gray-900">
+                Showing 1 to 4 of 50 Entries
+              </span>
+              <div className="xs:mt-0 mt-2 inline-flex">
+                <button className="rounded-l bg-blue-600 px-4 py-2 text-sm font-semibold text-blue-50 transition duration-150 hover:bg-blue-500">
+                  Prev
+                </button>
+                &nbsp; &nbsp;
+                <button className="rounded-r bg-blue-600 px-4 py-2 text-sm font-semibold text-blue-50 transition duration-150 hover:bg-blue-500">
+                  Next
+                </button>
               </div>
             </div>
           </div>
-        ) : (
-          <Loaders />
-        )}
+        </div>
       </div>
     </>
   )

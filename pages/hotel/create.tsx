@@ -12,7 +12,7 @@ import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
 
-const CreateDestination = () => {
+const CreateHotel = () => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required().min(3),
     description: Yup.string().required().min(3),
@@ -25,11 +25,6 @@ const CreateDestination = () => {
       (val) => val?.toString().length === 5
     ),
     telephone: Yup.number().required().min(12),
-    openTime: Yup.string().required().min(3),
-    openDay: Yup.string().required().min(3),
-    ticket: Yup.number().required().min(4),
-    website: Yup.string().required().url().min(3),
-    instagram: Yup.string().required().min(3),
     image: Yup.mixed().test('image', 'The file is too large', (value) => {
       if (!value.length) return true // attachment is optional
       return value[0].size <= 2000000
@@ -49,7 +44,7 @@ const CreateDestination = () => {
   const router = useRouter()
 
   const onSubmit = async (dataRequest: any, e: any) => {
-    const apiUrl = `https://jti-api.herokuapp.com/v1/destination`
+    const apiUrl = 'https://jti-api.herokuapp.com/v1/hotel'
 
     try {
       const data = {
@@ -61,11 +56,6 @@ const CreateDestination = () => {
         province: dataRequest.province,
         postalCode: dataRequest.postalCode,
         telephone: dataRequest.telephone,
-        openTime: dataRequest.openTime,
-        openDay: dataRequest.openDay,
-        ticket: dataRequest.ticket,
-        website: dataRequest.website,
-        instagram: dataRequest.instagram,
       }
 
       const res = await axios.post(apiUrl, data, {
@@ -74,13 +64,11 @@ const CreateDestination = () => {
 
       e.target.reset()
 
-      MySwal.fire(
-        'Success!',
-        'Destination Successfully Created!',
-        'success'
-      ).then(() => {
-        router.push('/destination')
-      })
+      MySwal.fire('Success!', 'Hotel Successfully Created!', 'success').then(
+        () => {
+          router.push('/hotel')
+        }
+      )
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -91,7 +79,7 @@ const CreateDestination = () => {
   }
 
   return (
-    <Layout title="Create Destination">
+    <Layout title="Create Hotel">
       <form onSubmit={handleSubmit(onSubmit)} encType="multipart/formData">
         <div className="mb-6 grid gap-6 lg:grid-cols-2">
           <InputForm
@@ -102,7 +90,6 @@ const CreateDestination = () => {
             register={register}
             errors={errors.name}
           />
-
           <InputForm
             id="city"
             type="text"
@@ -134,46 +121,6 @@ const CreateDestination = () => {
             placeholder="Telephone :"
             register={register}
             errors={errors.telephone}
-          />
-          <InputForm
-            id="openTime"
-            type="text"
-            label="Open Time"
-            placeholder="Open Time :"
-            register={register}
-            errors={errors.openTime}
-          />
-          <InputForm
-            id="openDay"
-            type="text"
-            label="Open Day"
-            placeholder="Open Day :"
-            register={register}
-            errors={errors.openDay}
-          />
-          <InputForm
-            id="ticket"
-            type="number"
-            label="Ticket"
-            placeholder="Ticket :"
-            register={register}
-            errors={errors.ticket}
-          />
-          <InputForm
-            id="website"
-            type="url"
-            label="Website"
-            placeholder="Website :"
-            register={register}
-            errors={errors.website}
-          />
-          <InputForm
-            id="instagram"
-            type="text"
-            label="Instagram"
-            placeholder="Instagram :"
-            register={register}
-            errors={errors.instagram}
           />
         </div>
         <InputForm
@@ -242,7 +189,7 @@ const CreateDestination = () => {
             </div>
           )}
         </div>
-        <Link href="/destination">
+        <Link href="/hotel">
           <button
             type="button"
             className="m-1 rounded-md border bg-red-600 px-4 py-2 text-sm  text-white hover:bg-red-700"
@@ -262,4 +209,4 @@ const CreateDestination = () => {
   )
 }
 
-export default CreateDestination
+export default CreateHotel

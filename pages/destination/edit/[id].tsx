@@ -48,8 +48,7 @@ const EditDestination = ({ destination }: any) => {
   const router = useRouter()
 
   const onSubmit = async (dataRequest: any, e: any) => {
-    const apiUrl = 'http://localhost:5000/v1/destination'
-    console.log(JSON.stringify(dataRequest))
+    const apiUrl = `https://jti-api.herokuapp.com/v1/destination/`
 
     try {
       const data = {
@@ -68,12 +67,11 @@ const EditDestination = ({ destination }: any) => {
         instagram: dataRequest.instagram,
       }
 
-      const res = await axios.put(`${apiUrl}/${destination.id}`, data, {
+      const res = await axios.put(`${apiUrl}${destination.id}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
 
       e.target.reset()
-      console.log(res.data)
 
       MySwal.fire(
         'Success!',
@@ -280,7 +278,6 @@ export async function getServerSideProps(context: any) {
     `${process.env.API_URL}/destination/${context.params.id}`
   )
   const destination = res.data
-  console.log(destination)
 
   return {
     props: {
