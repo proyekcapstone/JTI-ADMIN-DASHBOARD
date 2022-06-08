@@ -57,7 +57,7 @@ const DetailCulinary = ({ culinary }: any) => {
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Telephone</div>
-                    <div className="px-4 py-2">{culinary.telephone}</div>
+                    <div className="px-4 py-2">+62{culinary.telephone}</div>
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Open Time</div>

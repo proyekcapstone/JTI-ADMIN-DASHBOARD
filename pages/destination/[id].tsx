@@ -2,7 +2,6 @@ import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 import Layout from '../../components/Layout'
-import Loaders from '../../components/Loaders'
 
 const DetailDestination = ({ destination }: any) => {
   return (
@@ -17,7 +16,7 @@ const DetailDestination = ({ destination }: any) => {
                 <img
                   className="mx-auto h-auto w-full"
                   src={destination.image}
-                  alt=""
+                  alt="destination image"
                 />
               </div>
               <h1 className="my-1 text-xl font-bold capitalize leading-8 text-gray-900">
@@ -58,7 +57,7 @@ const DetailDestination = ({ destination }: any) => {
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Telephone</div>
-                    <div className="px-4 py-2">{destination.telephone}</div>
+                    <div className="px-4 py-2">+62{destination.telephone}</div>
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Postal Code</div>
@@ -75,7 +74,7 @@ const DetailDestination = ({ destination }: any) => {
 
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Instagram</div>
-                    <div className="px-4 py-2">{destination.instagram}</div>
+                    <div className="px-4 py-2">@{destination.instagram}</div>
                   </div>
                 </div>
               </div>

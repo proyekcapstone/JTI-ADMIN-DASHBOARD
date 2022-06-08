@@ -1,16 +1,18 @@
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai'
 import { FaSearch } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import Loaders from './Loaders'
 
 const MySwal = withReactContent(Swal)
 
 const TableCulinary = ({ culinaries }: any) => {
   const apiUrl = 'https://jti-api.herokuapp.com/v1/culinary/'
+
+  const router = useRouter()
 
   const handleDelete = (id: string) => {
     MySwal.fire({
@@ -28,7 +30,7 @@ const TableCulinary = ({ culinaries }: any) => {
             'Deleted!',
             'culinary Successfully Deleted.',
             'success'
-          ).then(() => window.location.reload())
+          ).then(() => router.push('/culinary'))
         })
       }
     })
@@ -107,7 +109,7 @@ const TableCulinary = ({ culinaries }: any) => {
                       </td>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {culinary.telephone}
+                          +62{culinary.telephone}
                         </p>
                       </td>
                       <td className="flex justify-around border-b border-gray-200 bg-white px-5 py-5 text-sm">

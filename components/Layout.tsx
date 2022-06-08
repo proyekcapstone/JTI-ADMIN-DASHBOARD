@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
@@ -11,6 +12,9 @@ interface LayoutProps {
 const Layout = ({ children, title }: LayoutProps) => {
   return (
     <>
+      <Head>
+        <title>JTI | {title}</title>
+      </Head>
       <Navbar />
       <main className="grid h-full w-full grid-cols-9">
         <div className="col-span-2">

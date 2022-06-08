@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -9,10 +9,13 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Button from '../../components/Button'
 
 const MySwal = withReactContent(Swal)
 
 const CreateHotel = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required().min(3),
     description: Yup.string().required().min(3),
@@ -58,9 +61,13 @@ const CreateHotel = () => {
         telephone: dataRequest.telephone,
       }
 
-      const res = await axios.post(apiUrl, data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      setIsLoading(true)
+
+      await axios
+        .post(apiUrl, data, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then(() => setIsLoading(false))
 
       e.target.reset()
 
@@ -116,7 +123,7 @@ const CreateHotel = () => {
           />
           <InputForm
             id="telephone"
-            type="number"
+            type="tel"
             label="Telephone"
             placeholder="Telephone :"
             register={register}
@@ -198,12 +205,7 @@ const CreateHotel = () => {
           </button>
         </Link>
 
-        <button
-          type="submit"
-          className="m-1 rounded-md border bg-blue-600 px-4 py-2 text-sm  text-white hover:bg-blue-700"
-        >
-          Create
-        </button>
+        <Button title="Create" isLoading={isLoading} />
       </form>
     </Layout>
   )

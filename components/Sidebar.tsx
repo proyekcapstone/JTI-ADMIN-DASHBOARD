@@ -1,12 +1,6 @@
 import Link from 'next/link'
-import React from 'react'
 import { AiFillDashboard } from 'react-icons/ai'
-import {
-  FaHamburger,
-  FaHotel,
-  FaMapMarkedAlt,
-  FaPowerOff,
-} from 'react-icons/fa'
+import { FaHamburger, FaHotel, FaMapSigns, FaPowerOff } from 'react-icons/fa'
 
 const Sidebar = () => {
   return (
@@ -24,7 +18,7 @@ const Sidebar = () => {
           </Link>
           <Link href="/destination">
             <a className="mt-4 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
-              <FaMapMarkedAlt className="mx-2 text-lg" />
+              <FaMapSigns className="mx-2 text-lg" />
               <span className="text-md font-semibold">Destination</span>
             </a>
           </Link>

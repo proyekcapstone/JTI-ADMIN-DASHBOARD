@@ -1,12 +1,9 @@
-import React from 'react'
-import { AiFillFacebook } from 'react-icons/ai'
-
 const Footer = () => {
   return (
     <div
       className="flex flex-col border-t 
             border-gray-100 px-8 pb-5 pt-5 
-            text-sm text-gray-400 md:flex-row"
+            text-sm text-gray-600 md:flex-row"
     >
       <div className="mt-2">
         © Copyright 2022 - JTI (JOGJA TRAVEL INFORMATION) | All Rights Reserved.
