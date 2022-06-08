@@ -9,8 +9,8 @@ import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
 
-const TableHotel = ({ hotels }: any) => {
-  const apiUrl = 'https://jti-api.herokuapp.com/v1/hotel/'
+const TableCulinary = ({ culinaries }: any) => {
+  const apiUrl = 'https://jti-api.herokuapp.com/v1/culinary/'
 
   const router = useRouter()
 
@@ -26,9 +26,11 @@ const TableHotel = ({ hotels }: any) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`${apiUrl}${id}`).then(() => {
-          Swal.fire('Deleted!', 'Hotel Successfully Deleted.', 'success').then(
-            () => router.push('/hotel')
-          )
+          Swal.fire(
+            'Deleted!',
+            'culinary Successfully Deleted.',
+            'success'
+          ).then(() => router.push('/culinary'))
         })
       }
     })
@@ -38,8 +40,8 @@ const TableHotel = ({ hotels }: any) => {
     <>
       <div className="block items-center justify-between pb-6 sm:flex ">
         <div>
-          <h2 className="font-semibold text-gray-600">Hotels</h2>
-          <span className="text-xs">All Hotels</span>
+          <h2 className="font-semibold text-gray-600">Culinaries</h2>
+          <span className="text-xs">All Culinaries</span>
         </div>
         <div className="mt-4 block items-center justify-between sm:mt-0 sm:flex">
           <div className="flex items-center rounded-md bg-gray-50 p-2">
@@ -54,7 +56,7 @@ const TableHotel = ({ hotels }: any) => {
             <button className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-semibold tracking-wide text-white">
               New Report
             </button>
-            <Link href="/hotel/create">
+            <Link href="/culinary/create">
               <button className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-semibold tracking-wide text-white">
                 Create
               </button>
@@ -87,38 +89,38 @@ const TableHotel = ({ hotels }: any) => {
                 </tr>
               </thead>
               <tbody>
-                {hotels.map((hotel: any) => {
+                {culinaries.map((culinary: any) => {
                   return (
-                    <tr key={hotel.id}>
+                    <tr key={culinary.id}>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {hotel.name}
+                          {culinary.name}
                         </p>
                       </td>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {hotel.openTime}
+                          {culinary.openTime}
                         </p>
                       </td>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {hotel.openDay}
+                          {culinary.openDay}
                         </p>
                       </td>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {hotel.telephone}
+                          +62{culinary.telephone}
                         </p>
                       </td>
                       <td className="flex justify-around border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                        <Link href={`/hotel/${hotel.id}`}>
+                        <Link href={`/culinary/${culinary.id}`}>
                           <button className="rounded-xl bg-green-300 px-2 py-1 text-green-900">
                             <span className="relative">
                               <AiFillEye />
                             </span>
                           </button>
                         </Link>
-                        <Link href={`/hotel/edit/${hotel.id}`}>
+                        <Link href={`/culinary/edit/${culinary.id}`}>
                           <button className="rounded-xl bg-blue-300 px-2 py-1 text-blue-900">
                             <span className="relative">
                               <AiFillEdit />
@@ -126,7 +128,7 @@ const TableHotel = ({ hotels }: any) => {
                           </button>
                         </Link>
                         <button
-                          onClick={() => handleDelete(hotel.id)}
+                          onClick={() => handleDelete(culinary.id)}
                           className="rounded-xl bg-red-300 px-2 py-1 text-red-900"
                         >
                           <span className="relative">
@@ -160,4 +162,4 @@ const TableHotel = ({ hotels }: any) => {
   )
 }
 
-export default TableHotel
+export default TableCulinary

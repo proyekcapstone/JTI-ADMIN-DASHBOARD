@@ -13,7 +13,7 @@ import Button from '../../components/Button'
 
 const MySwal = withReactContent(Swal)
 
-const CreateHotel = () => {
+const CreateCulinary = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const validationSchema = Yup.object().shape({
@@ -22,12 +22,9 @@ const CreateHotel = () => {
     address: Yup.string().required().min(3),
     city: Yup.string().required().min(3),
     province: Yup.string().required().min(3),
-    postalCode: Yup.number().test(
-      'postalCode',
-      'Must be exactly 5 character',
-      (val) => val?.toString().length === 5
-    ),
     telephone: Yup.number().required().min(12),
+    openTime: Yup.string().required().min(3),
+    openDay: Yup.string().required().min(3),
     image: Yup.mixed().test('image', 'The file is too large', (value) => {
       if (!value.length) return true // attachment is optional
       return value[0].size <= 2000000
@@ -47,7 +44,7 @@ const CreateHotel = () => {
   const router = useRouter()
 
   const onSubmit = async (dataRequest: any, e: any) => {
-    const apiUrl = 'https://jti-api.herokuapp.com/v1/hotel'
+    const apiUrl = 'https://jti-api.herokuapp.com/v1/culinary'
 
     try {
       const data = {
@@ -57,8 +54,9 @@ const CreateHotel = () => {
         address: dataRequest.address,
         city: dataRequest.city,
         province: dataRequest.province,
-        postalCode: dataRequest.postalCode,
         telephone: dataRequest.telephone,
+        openTime: dataRequest.openTime,
+        openDay: dataRequest.openDay,
       }
 
       setIsLoading(true)
@@ -71,9 +69,9 @@ const CreateHotel = () => {
 
       e.target.reset()
 
-      MySwal.fire('Success!', 'Hotel Successfully Created!', 'success').then(
+      MySwal.fire('Success!', 'Culinary Successfully Created!', 'success').then(
         () => {
-          router.push('/hotel')
+          router.push('/culinary')
         }
       )
     } catch (error) {
@@ -86,7 +84,7 @@ const CreateHotel = () => {
   }
 
   return (
-    <Layout title="Create Hotel">
+    <Layout title="Create Culinary">
       <form onSubmit={handleSubmit(onSubmit)} encType="multipart/formData">
         <div className="mb-6 grid gap-6 lg:grid-cols-2">
           <InputForm
@@ -114,20 +112,28 @@ const CreateHotel = () => {
             errors={errors.province}
           />
           <InputForm
-            id="postalCode"
-            type="number"
-            label="Postal Code"
-            placeholder="Postal Code :"
-            register={register}
-            errors={errors.postalCode}
-          />
-          <InputForm
             id="telephone"
-            type="tel"
+            type="number"
             label="Telephone"
             placeholder="Telephone :"
             register={register}
             errors={errors.telephone}
+          />
+          <InputForm
+            id="openTime"
+            type="text"
+            label="Open Time"
+            placeholder="Open Time :"
+            register={register}
+            errors={errors.openTime}
+          />
+          <InputForm
+            id="openDay"
+            type="text"
+            label="Open Day"
+            placeholder="Open Day :"
+            register={register}
+            errors={errors.openDay}
           />
         </div>
         <InputForm
@@ -196,7 +202,7 @@ const CreateHotel = () => {
             </div>
           )}
         </div>
-        <Link href="/hotel">
+        <Link href="/culinary">
           <button
             type="button"
             className="m-1 rounded-md border bg-red-600 px-4 py-2 text-sm  text-white hover:bg-red-700"
@@ -211,4 +217,4 @@ const CreateHotel = () => {
   )
 }
 
-export default CreateHotel
+export default CreateCulinary

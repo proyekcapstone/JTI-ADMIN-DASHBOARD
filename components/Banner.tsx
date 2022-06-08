@@ -19,29 +19,8 @@ const Banner = () => {
             target="_blank"
             className="group mt-5 mb-8 ml-10 font-semibold text-white "
           >
-            View the docs
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="transition-200 inline-block h-6 w-6 transition delay-100 group-hover:translate-x-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
+            View the docs {'->'}
           </a>
-        </div>
-
-        <div className="relative col-span-2">
-          <img
-            src="https://www.digitalocean.com/_next/static/media/cloudJourneyImage.954519ea.svg"
-            className="absolute bottom-0 right-0"
-          />
         </div>
       </div>
     </div>

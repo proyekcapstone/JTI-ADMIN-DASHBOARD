@@ -3,17 +3,17 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import InputForm from '../../components/InputForm'
-import Layout from '../../components/Layout'
+import InputForm from '../../../components/InputForm'
+import Layout from '../../../components/Layout'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import Button from '../../components/Button'
+import Button from '../../../components/Button'
 
 const MySwal = withReactContent(Swal)
 
-const CreateHotel = () => {
+const EditCulinary = ({ culinary }: any) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const validationSchema = Yup.object().shape({
@@ -22,12 +22,9 @@ const CreateHotel = () => {
     address: Yup.string().required().min(3),
     city: Yup.string().required().min(3),
     province: Yup.string().required().min(3),
-    postalCode: Yup.number().test(
-      'postalCode',
-      'Must be exactly 5 character',
-      (val) => val?.toString().length === 5
-    ),
     telephone: Yup.number().required().min(12),
+    openTime: Yup.string().required().min(3),
+    openDay: Yup.string().required().min(3),
     image: Yup.mixed().test('image', 'The file is too large', (value) => {
       if (!value.length) return true // attachment is optional
       return value[0].size <= 2000000
@@ -37,7 +34,6 @@ const CreateHotel = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     mode: 'onBlur',
@@ -47,7 +43,7 @@ const CreateHotel = () => {
   const router = useRouter()
 
   const onSubmit = async (dataRequest: any, e: any) => {
-    const apiUrl = 'https://jti-api.herokuapp.com/v1/hotel'
+    const apiUrl = 'https://jti-api.herokuapp.com/v1/culinary'
 
     try {
       const data = {
@@ -64,20 +60,20 @@ const CreateHotel = () => {
       setIsLoading(true)
 
       await axios
-        .post(apiUrl, data, {
+        .put(`${apiUrl}/${culinary.id}`, data, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(() => setIsLoading(false))
 
       e.target.reset()
 
-      MySwal.fire('Success!', 'Hotel Successfully Created!', 'success').then(
+      MySwal.fire('Success!', 'Culinary Successfully Updated!', 'success').then(
         () => {
-          router.push('/hotel')
+          router.push('/culinary')
         }
       )
     } catch (error) {
-      Swal.fire({
+      MySwal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong!',
@@ -86,7 +82,7 @@ const CreateHotel = () => {
   }
 
   return (
-    <Layout title="Create Hotel">
+    <Layout title="Edit Culinary">
       <form onSubmit={handleSubmit(onSubmit)} encType="multipart/formData">
         <div className="mb-6 grid gap-6 lg:grid-cols-2">
           <InputForm
@@ -96,7 +92,9 @@ const CreateHotel = () => {
             placeholder="Name :"
             register={register}
             errors={errors.name}
+            defaultValue={`${culinary.name}`}
           />
+
           <InputForm
             id="city"
             type="text"
@@ -104,6 +102,7 @@ const CreateHotel = () => {
             placeholder="City :"
             register={register}
             errors={errors.city}
+            defaultValue={culinary.city}
           />
           <InputForm
             id="province"
@@ -112,22 +111,34 @@ const CreateHotel = () => {
             placeholder="Province :"
             register={register}
             errors={errors.province}
-          />
-          <InputForm
-            id="postalCode"
-            type="number"
-            label="Postal Code"
-            placeholder="Postal Code :"
-            register={register}
-            errors={errors.postalCode}
+            defaultValue={culinary.province}
           />
           <InputForm
             id="telephone"
-            type="tel"
+            type="number"
             label="Telephone"
             placeholder="Telephone :"
             register={register}
             errors={errors.telephone}
+            defaultValue={culinary.telephone}
+          />
+          <InputForm
+            id="openTime"
+            type="text"
+            label="Open Time"
+            placeholder="Open Time :"
+            register={register}
+            errors={errors.openTime}
+            defaultValue={culinary.openTime}
+          />
+          <InputForm
+            id="openDay"
+            type="text"
+            label="Open Day"
+            placeholder="Open Day :"
+            register={register}
+            errors={errors.openDay}
+            defaultValue={culinary.openDay}
           />
         </div>
         <InputForm
@@ -137,6 +148,7 @@ const CreateHotel = () => {
           placeholder="Address :"
           register={register}
           errors={errors.address}
+          defaultValue={culinary.address}
         />
         <div className="my-8">
           <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
@@ -149,6 +161,7 @@ const CreateHotel = () => {
             rows={3}
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
             placeholder="Description :"
+            defaultValue={culinary.description}
           ></textarea>
           {errors.description && (
             <div className="m-1 text-sm font-light text-red-500">
@@ -196,7 +209,7 @@ const CreateHotel = () => {
             </div>
           )}
         </div>
-        <Link href="/hotel">
+        <Link href="/culinary">
           <button
             type="button"
             className="m-1 rounded-md border bg-red-600 px-4 py-2 text-sm  text-white hover:bg-red-700"
@@ -205,10 +218,23 @@ const CreateHotel = () => {
           </button>
         </Link>
 
-        <Button title="Create" isLoading={isLoading} />
+        <Button title="Update" isLoading={isLoading} />
       </form>
     </Layout>
   )
 }
 
-export default CreateHotel
+export async function getServerSideProps(context: any) {
+  const res = await axios.get(
+    `${process.env.API_URL}/culinary/${context.params.id}`
+  )
+  const culinary = res.data
+
+  return {
+    props: {
+      culinary,
+    },
+  }
+}
+
+export default EditCulinary

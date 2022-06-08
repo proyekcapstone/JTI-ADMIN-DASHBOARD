@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -9,10 +9,13 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Button from '../../../components/Button'
 
 const MySwal = withReactContent(Swal)
 
 const EditHotel = ({ hotel }: any) => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required().min(3),
     description: Yup.string().required().min(3),
@@ -25,10 +28,10 @@ const EditHotel = ({ hotel }: any) => {
       (val) => val?.toString().length === 5
     ),
     telephone: Yup.number().required().min(12),
-    // image: Yup.mixed().test('image', 'The file is too large', (value) => {
-    //   if (!value.length) return true // attachment is optional
-    //   return value[0].size <= 2000000
-    // }),
+    image: Yup.mixed().test('image', 'The file is too large', (value) => {
+      if (!value.length) return true // attachment is optional
+      return value[0].size <= 2000000
+    }),
   })
 
   const {
@@ -57,9 +60,13 @@ const EditHotel = ({ hotel }: any) => {
         telephone: dataRequest.telephone,
       }
 
-      const res = await axios.put(`${apiUrl}/${hotel.id}`, data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      setIsLoading(true)
+
+      await axios
+        .put(`${apiUrl}/${hotel.id}`, data, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then(() => setIsLoading(false))
 
       e.target.reset()
 
@@ -120,7 +127,7 @@ const EditHotel = ({ hotel }: any) => {
           />
           <InputForm
             id="telephone"
-            type="number"
+            type="tel"
             label="Telephone"
             placeholder="Telephone :"
             register={register}
@@ -205,12 +212,7 @@ const EditHotel = ({ hotel }: any) => {
           </button>
         </Link>
 
-        <button
-          type="submit"
-          className="m-1 rounded-md border bg-blue-600 px-4 py-2 text-sm  text-white hover:bg-blue-700"
-        >
-          Create
-        </button>
+        <Button title="Update" isLoading={isLoading} />
       </form>
     </Layout>
   )
