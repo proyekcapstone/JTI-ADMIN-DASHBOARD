@@ -1,7 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
 import { AiFillDashboard } from 'react-icons/ai'
-import { FaHotel, FaMapMarkedAlt, FaPowerOff } from 'react-icons/fa'
+import {
+  FaHamburger,
+  FaHotel,
+  FaMapMarkedAlt,
+  FaPowerOff,
+} from 'react-icons/fa'
 
 const Sidebar = () => {
   return (
@@ -12,21 +17,27 @@ const Sidebar = () => {
             JOGJA TRAVEL INFORMATION
           </div>
           <Link href="/">
-            <a className="mt-2 flex cursor-pointer items-center rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
+            <a className="mt-4 flex cursor-pointer items-center rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
               <AiFillDashboard className="mx-2 text-lg" />
               <span className="text-md font-semibold">Dashboard</span>
             </a>
           </Link>
           <Link href="/destination">
-            <a className="mt-2 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
+            <a className="mt-4 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
               <FaMapMarkedAlt className="mx-2 text-lg" />
               <span className="text-md font-semibold">Destination</span>
             </a>
           </Link>
           <Link href="/hotel">
-            <a className="mt-2 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
+            <a className="mt-4 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
               <FaHotel className="mx-2 text-lg" />
               <span className="text-md font-semibold">Hotel</span>
+            </a>
+          </Link>
+          <Link href="/culinary">
+            <a className="mt-4 flex cursor-pointer rounded bg-gray-300 p-2 text-black hover:bg-blue-600 hover:text-blue-100">
+              <FaHamburger className="mx-2 text-lg" />
+              <span className="text-md font-semibold">Culinary</span>
             </a>
           </Link>
         </div>
