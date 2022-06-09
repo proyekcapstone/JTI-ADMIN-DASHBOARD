@@ -17,22 +17,22 @@ const CreateDestination = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required().min(3),
-    description: Yup.string().required().min(3),
-    address: Yup.string().required().min(3),
-    city: Yup.string().required().min(3),
-    province: Yup.string().required().min(3),
+    name: Yup.string().required(),
+    description: Yup.string().required(),
+    address: Yup.string().required(),
+    city: Yup.string().required(),
+    province: Yup.string().required(),
     postalCode: Yup.number().test(
       'postalCode',
       'Must be exactly 5 character',
       (val) => val?.toString().length === 5
     ),
-    telephone: Yup.number().required().min(12),
-    openTime: Yup.string().required().min(3),
-    openDay: Yup.string().required().min(3),
-    ticket: Yup.number().required().min(4),
-    website: Yup.string().required().url().min(3),
-    instagram: Yup.string().required().min(3),
+    telephone: Yup.number().required(),
+    openTime: Yup.string().required(),
+    openDay: Yup.string().required(),
+    ticket: Yup.number().required(),
+    website: Yup.string().required(),
+    instagram: Yup.string().required(),
     image: Yup.mixed().test('image', 'The file is too large', (value) => {
       if (!value.length) return true // attachment is optional
       return value[0].size <= 2000000
@@ -168,7 +168,7 @@ const CreateDestination = () => {
           />
           <InputForm
             id="website"
-            type="url"
+            type="text"
             label="Website"
             placeholder="Website :"
             register={register}

@@ -72,11 +72,11 @@ const TableHotel = ({ hotels }: any) => {
                     Name
                   </th>
                   <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                    Open/Close Hours
+                    City
                   </th>
 
                   <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
-                    Open Day
+                    Postal Code
                   </th>
                   <th className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
                     No.Telp
@@ -97,17 +97,17 @@ const TableHotel = ({ hotels }: any) => {
                       </td>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {hotel.openTime}
+                          {hotel.city}
                         </p>
                       </td>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {hotel.openDay}
+                          {hotel.postalCode}
                         </p>
                       </td>
                       <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                         <p className="whitespace-no-wrap text-gray-900">
-                          {hotel.telephone}
+                          +62{hotel.telephone}
                         </p>
                       </td>
                       <td className="flex justify-around border-b border-gray-200 bg-white px-5 py-5 text-sm">

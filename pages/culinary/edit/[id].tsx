@@ -17,14 +17,14 @@ const EditCulinary = ({ culinary }: any) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required().min(3),
-    description: Yup.string().required().min(3),
-    address: Yup.string().required().min(3),
-    city: Yup.string().required().min(3),
-    province: Yup.string().required().min(3),
+    name: Yup.string().required(),
+    description: Yup.string().required(),
+    address: Yup.string().required(),
+    city: Yup.string().required(),
+    province: Yup.string().required(),
     telephone: Yup.number().required().min(12),
-    openTime: Yup.string().required().min(3),
-    openDay: Yup.string().required().min(3),
+    openTime: Yup.string().required(),
+    openDay: Yup.string().required(),
     image: Yup.mixed().test('image', 'The file is too large', (value) => {
       if (!value.length) return true // attachment is optional
       return value[0].size <= 2000000
